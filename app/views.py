@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from app.models import User
 
 class CustomView(View):
@@ -38,6 +38,11 @@ def index(request):
     response = render(request, 'app/index.html')
     return response
 
+def logout_handler(request):
+    logout(request)
+    return redirect('home')
+
+
 class Login(CustomView):
     def post(self, request):
         phone_number = request.POST.get('phone_number')
@@ -56,3 +61,7 @@ class Login(CustomView):
             user.save()
         login(request, user)
         return redirect('home')
+    def delete(self, request):
+        logout(request)
+        return redirect('home')
+

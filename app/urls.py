@@ -8,4 +8,5 @@ urlpatterns = [
     path('confirm/', views.confirm, name='confirm'),
     path('withdraw/', views.withdraw, name='withdraw'),
     path('history/', views.history, name='history'),
+    path('logout/', views.logout_handler, name='logout'),
 ]
