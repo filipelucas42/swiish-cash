@@ -5,7 +5,6 @@ import secrets
 # Connect to Avalanche C-Chain
 avalanche_url = "https://api.avax-test.network/ext/bc/C/rpc"
 w3 = Web3(Web3.HTTPProvider(avalanche_url))
-w3.eth.chain_id = 43113
 
 def create_wallet():
     # Generate a private key
