@@ -1,11 +1,89 @@
-{% extends 'app/layouts/base.html' %}
+{% extends 'app/layouts/base.html' %} {% load static %}
 
-{% block title %}Confirmação{% endblock %}
+<!-- Define page title for navbar -->
+{% block title %}Send Crypto{% endblock %} {% block page_title %}Send Crypto{%
+endblock %} {% block content %}
+<div class="text-center">
+  <!-- Images (Card + Avalanche Logo) -->
+  <div class="position-relative d-flex justify-content-center">
+    <img
+      src="{% static 'app/images/red_card.png' %}"
+      width="300"
+      class="img-fluid rounded"
+    />
+    <img
+      src="{% static 'app/images/avalanche_logo.png' %}"
+      width="100"
+      class="img-fluid position-absolute"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
+    />
+  </div>
 
-{% block content %}
-<div class="card">
-    <h2>Transação Enviada</h2>
-    <p>Você enviou $13 para +351 917 432 992</p>
-    <button class="btn btn-custom btn-green">Fechar</button>
+  <!-- Crypto Type -->
+  <p class="mt-3 text-white">Avax | USDC</p>
+
+  <!-- Confirmation Form -->
+  <form
+    method="POST"
+    class="mx-auto"
+    style="max-width: 300px"
+    action="{% url 'confirm' %}"
+  >
+    {% csrf_token %}
+
+    <!-- Amount Being Sent (Display Only) -->
+    <p
+      class="form-control text-white bg-transparent text-center fw-bold border-0"
+      style="
+        font-size: 60px;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+        display: block;
+      "
+    >
+      $<span id="sendAmount">{{ send_amount }}</span>
+    </p>
+
+    <!-- Gas Fees (Display Only) -->
+    <div class="mt-3">
+      <label
+        class="form-label text-white text-start d-block"
+        style="font-size: 14px"
+        >Gas Fees</label
+      >
+      <p
+        class="form-control text-white bg-transparent text-center border-0"
+        style="font-size: 20px; border-bottom: 1px solid white; outline: none"
+      >
+        $<span id="gasFees">{{ gas_fees }}</span>
+      </p>
+    </div>
+
+    <!-- Confirm Phone Number (Display Only) -->
+    <div class="mt-3">
+      <label
+        class="form-label text-white text-start d-block"
+        style="font-size: 14px"
+        >Recipient Phone Number</label
+      >
+      <p
+        class="form-control text-white bg-transparent text-center border-0"
+        style="font-size: 20px; border-bottom: 1px solid white; outline: none"
+      >
+        <span id="phoneNumber">{{ phone_number }}</span>
+      </p>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn btn-custom w-100 mt-3"
+      style="background-color: #f53848; color: white; border-radius: 8px"
+    >
+      Next
+    </button>
+  </form>
 </div>
+
 {% endblock %}

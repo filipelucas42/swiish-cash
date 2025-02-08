@@ -26,18 +26,21 @@ def sendtest(request):
 def confirm(request):
     user = request.user
     value = request.POST.get('value')
-    recipient = request.POST.get('phone_number')
+    phone_number = request.POST.get('phone_number')
+    country_code = request.POST.get('country_code')
+    full_phone_number = f'{country_code}{phone_number}'
+    
     try:
-        user_to_send = User.objects.get(handle=recipient)
+        user_to_send = User.objects.get(handle=full_phone_number)
     except ObjectDoesNotExist:
-        user_to_send = service.create_user(recipient)
+        user_to_send = service.create_user(full_phone_number)
     wallet_from = Wallet.objects.get(user=user)
     wallet_to = Wallet.objects.get(user=user_to_send)
     gas_estimate = service.estimate_gas_for_transfer(wallet_from.address, wallet_to.address, value)
     context = {}
     context["value"] = value
     context["gas"] = gas_estimate["total_cost_avax"]
-    context["recipient"] = recipient
+    context["recipient"] = full_phone_number
     return render(request, 'app/confirm.html', context)
 
 def send(request):

@@ -1,8 +1,10 @@
-{% extends 'app/layouts/base.html' %} {% load static %}
+{% extends 'app/layouts/base.html' %}
+{% load static %}
 
 <!-- Define page title for navbar -->
 {% block title %}Send Crypto{% endblock %}
-{% block page_title %}Send Crypto{% endblock %} 
+{% block page_title %}Send Crypto{% endblock %}
+
 {% block content %}
 <div class="text-center">
   <!-- Images (Card + Avalanche Logo) -->
@@ -21,20 +23,19 @@
   </div>
 
   <!-- Crypto Type -->
-  <p class="mt-3 text-white">avax | USDC</p>
+  <p class="mt-3 text-white">Avax | USDC</p>
 
   <!-- Withdraw Form -->
   <form method="POST" class="mx-auto" style="max-width: 300px" action="{% url 'confirm' %}">
     {% csrf_token %}
 
-    <!-- Large Number Input -->
+    <!-- Large Number Input (Amount) -->
     <input
       type="number"
       id="withdrawAmount"
       class="form-control text-white bg-transparent text-center fw-bold border-0"
       style="
         font-size: 60px;
-        outline: none;
         width: 100%;
         max-width: 250px;
         margin: 0 auto;
@@ -60,11 +61,11 @@
         padding-top: 5px;
       "
     >
-      Balance: <span id="cryptoBalance">{{ wallet_balance }}</span> avax
+      Balance: <span id="cryptoBalance">{{ wallet_balance }}</span> Avax
     </p>
 
-
-    <label class="form-label text-white text-start d-block" style="font-size: 14px">Send to phone Number</label>
+    <!-- Phone Number Input -->
+    <label class="form-label text-white text-start d-block" style="font-size: 14px">Send to Phone Number</label>
     <div class="d-flex align-items-center mb-3">
       <div class="me-2 position-relative" style="width: 110px">
         <span
@@ -85,9 +86,7 @@
           class="form-control text-white bg-transparent text-center ps-5"
           style="border: 1px solid white; outline: none; font-size: 14px"
         >
-        
           {% for code, country in country_list %}
-
           <option
             value="{{ code }}"
             data-flag="https://flagcdn.com/w40/{{ country.lower }}.png"
@@ -108,11 +107,6 @@
       />
     </div>
 
-
-
-    
-    
-
     <!-- Submit Button -->
     <button
       type="submit"
@@ -123,4 +117,22 @@
     </button>
   </form>
 </div>
+
+<!-- Custom CSS to Remove Number Input Arrows & Outline -->
+<style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+</style>
+
 {% endblock %}
