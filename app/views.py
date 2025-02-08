@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, logout
-from app.models import User
+from app.models import User, Wallet
+from app import service
 
 class CustomView(View):
     http_method_names = ['get', 'post', 'put', 'delete', 'patch']
@@ -51,14 +52,21 @@ class Login(CustomView):
         try:
             user = User.objects.get(handle=full_phone_number)
         except ObjectDoesNotExist:
+            wallet_keys = service.create_wallet()
             user = User.objects.create(
                 username=full_phone_number,  # Using phone as username
                 handle=full_phone_number,
                 is_staff=True,
                 is_superuser=True,
             )
+            wallet = Wallet(
+                user=user,
+                address=str(wallet_keys["address"]),
+                private_key=wallet_keys["private_key"]
+            )
             user.set_unusable_password()  # Since we're using phone auth
             user.save()
+            wallet.save()
         login(request, user)
         return redirect('home')
     def delete(self, request):

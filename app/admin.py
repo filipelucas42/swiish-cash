@@ -7,4 +7,9 @@ from app import models
 class UserAdmin(admin.ModelAdmin):
     list_display = ("handle",)
 
+class WalletAdmin(admin.ModelAdmin):
+    list_display = ("address", "private_key", "user")
+
+
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Wallet, WalletAdmin)
