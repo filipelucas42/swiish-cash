@@ -3,8 +3,9 @@ from eth_account import Account
 import secrets
 
 # Connect to Avalanche C-Chain
-avalanche_url = "https://api.avax.network/ext/bc/C/rpc"
+avalanche_url = "https://api.avax-test.network/ext/bc/C/rpc"
 w3 = Web3(Web3.HTTPProvider(avalanche_url))
+w3.eth.chain_id = 43113
 
 def create_wallet():
     # Generate a private key
@@ -20,6 +21,20 @@ def create_wallet():
         "private_key": private_key
     }
 
+def get_balance(address: str) -> str:
+    """
+    Get AVAX balance for an address
+    Returns balance in AVAX (not Wei)
+    """
+    try:
+        # Get balance in Wei
+        balance_wei = w3.eth.get_balance(address)
+        # Convert Wei to AVAX (18 decimals)
+        balance_avax = w3.from_wei(balance_wei, 'ether')
+        return balance_avax
+    except Exception as e:
+        print(f"Error getting balance: {e}")
+        return 0
 # Example usage
 def main():
     wallet = create_wallet()
