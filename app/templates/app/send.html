@@ -1,14 +1,26 @@
-{% extends 'app/layouts/base.html' %} {% block title %}Send Crypto{% endblock %}
+{% extends 'app/layouts/base.html' %} 
+{% load static %}
+{% block title %}
+Send Crypto
+{% endblock %}
 {% block content %}
+
 <div class="text-center">
   <h2 class="fw-bold">Send Crypto</h2>
-  <h3 class="text-muted">Sending $27 USDC</h3>
+  <h3>Sending $XX USDC</h3>
 
-  <div class="card my-4 p-4 text-center">
+  <div class="position-relative d-flex justify-content-center my-4">
     <img
-      src="https://cryptologos.cc/logos/solana-sol-logo.png?v=023"
-      width="150"
+      src="{% static 'app/images/red_card.png' %}"
+      width="200"
       class="img-fluid rounded"
+    />
+
+    <img
+      src="{% static 'app/images/avalanche_logo.png' %}"
+      width="100"
+      class="img-fluid position-absolute"
+      style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
     />
   </div>
 
