@@ -6,3 +6,6 @@ def index(request):
     response = render(request, 'app/index.html')
     return response
 
+def page(request):
+    response = render(request, 'app/page1.html')
+    return response
