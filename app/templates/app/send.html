@@ -1,0 +1,15 @@
+{% extends 'app/layouts/base.html' %}
+
+{% block title %}Enviar Cripto{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Enviar Avax</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" class="form-control my-3" placeholder="+351 917 432 992">
+        <input type="number" class="form-control my-3" placeholder="Valor em USD">
+        <button type="submit" class="btn btn-custom btn-green">Próximo</button>
+    </form>
+</div>
+{% endblock %}

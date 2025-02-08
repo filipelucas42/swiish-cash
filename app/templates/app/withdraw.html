@@ -1,0 +1,15 @@
+{% extends 'app/layouts/base.html' %}
+
+{% block title %}Sacar Cripto{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Sacar Crypto</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" class="form-control my-3" placeholder="Endereço da Wallet">
+        <input type="number" class="form-control my-3" placeholder="Valor em USD">
+        <button type="submit" class="btn btn-custom btn-red">Sacar</button>
+    </form>
+</div>
+{% endblock %}

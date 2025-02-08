@@ -1,11 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+def home(request):
+    return render(request, 'app/home.html')
 
-def index(request):
-    response = render(request, 'app/index.html')
-    return response
+def send(request):
+    return render(request, 'app/send.html')
+
+def confirm(request):
+    return render(request, 'app/confirm.html')
+
+def withdraw(request):
+    return render(request, 'app/withdraw.html')
+
+def history(request):
+    return render(request, 'app/history.html')
 
 def page(request):
-    response = render(request, 'app/page1.html')
-    return response
+    return render(request, "app/page1.html")
