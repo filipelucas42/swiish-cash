@@ -24,7 +24,7 @@
   <p class="mt-3 text-white">avax | USDC</p>
 
   <!-- Withdraw Form -->
-  <form method="POST" class="mx-auto" style="max-width: 300px">
+  <form method="POST" class="mx-auto" style="max-width: 300px" action="{% url 'confirm' %}">
     {% csrf_token %}
 
     <!-- Large Number Input -->
@@ -42,6 +42,7 @@
       "
       placeholder="0"
       name="value"
+      step="any"
       required
     />
 
@@ -63,7 +64,7 @@
     </p>
 
 
-    <label class="form-label text-white text-start d-block" style="font-size: 14px">Phone Number</label>
+    <label class="form-label text-white text-start d-block" style="font-size: 14px">Send to phone Number</label>
     <div class="d-flex align-items-center mb-3">
       <div class="me-2 position-relative" style="width: 110px">
         <span

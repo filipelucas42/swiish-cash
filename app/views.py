@@ -24,7 +24,21 @@ def sendtest(request):
     return render(request, 'app/sendtest.html')
 
 def confirm(request):
-    return render(request, 'app/confirm.html')
+    user = request.user
+    value = request.POST.get('value')
+    recipient = request.POST.get('phone_number')
+    try:
+        user_to_send = User.objects.get(handle=recipient)
+    except ObjectDoesNotExist:
+        user_to_send = service.create_user(recipient)
+    wallet_from = Wallet.objects.get(user=user)
+    wallet_to = Wallet.objects.get(user=user_to_send)
+    gas_estimate = service.estimate_gas_for_transfer(wallet_from.address, wallet_to.address, value)
+    context = {}
+    context["value"] = value
+    context["gas"] = gas_estimate["total_cost_avax"]
+    context["recipient"] = recipient
+    return render(request, 'app/confirm.html', context)
 
 def send(request):
     context = {}
@@ -65,23 +79,9 @@ class Login(CustomView):
         try:
             user = User.objects.get(handle=full_phone_number)
         except ObjectDoesNotExist:
-            wallet_keys = service.create_wallet()
-            user = User.objects.create(
-                username=full_phone_number,  # Using phone as username
-                handle=full_phone_number,
-                is_staff=True,
-                is_superuser=True,
-            )
-            wallet = Wallet(
-                user=user,
-                address=str(wallet_keys["address"]),
-                private_key=wallet_keys["private_key"]
-            )
-            user.set_unusable_password()  # Since we're using phone auth
-            user.save()
-            wallet.save()
+            user = service.create_user(full_phone_number)
         login(request, user)
-        return redirect('home')
+        return redirect('send')
     def delete(self, request):
         logout(request)
         return redirect('home')
