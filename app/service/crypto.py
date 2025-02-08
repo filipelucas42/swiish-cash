@@ -34,7 +34,76 @@ def get_balance(address: str) -> str:
     except Exception as e:
         print(f"Error getting balance: {e}")
         return 0
-# Example usage
+
+def estimate_gas_for_transfer(from_address: str, to_address: str, amount_avax: float):
+    """
+    Estimate gas needed to send AVAX
+    Returns estimated gas in wei
+    """
+    try:
+        # Convert AVAX amount to Wei
+        amount_wei = w3.to_wei(amount_avax, 'ether')
+        
+        # Prepare transaction parameters
+        tx_params = {
+            'from': from_address,
+            'to': to_address,
+            'value': amount_wei,
+            'nonce': w3.eth.get_transaction_count(from_address),
+            'chainId': w3.eth.chain_id
+        }
+        
+        # Estimate gas
+        estimated_gas = w3.eth.estimate_gas(tx_params)
+        
+        # Get current gas price
+        gas_price = w3.eth.gas_price
+        
+        # Calculate total cost in AVAX
+        total_cost_wei = estimated_gas * gas_price
+        total_cost_avax = w3.from_wei(total_cost_wei, 'ether')
+        
+        return {
+            'estimated_gas': estimated_gas,
+            'gas_price_wei': gas_price,
+            'total_cost_avax': total_cost_avax
+        }
+    except Exception as e:
+        print(f"Error estimating gas: {e}")
+        return None
+
+def send_transaction(from_address: str, to_address: str, amount_avax: float, private_key: str):
+    """
+    Send AVAX from one address to another
+    """
+    gas_for_transfer = estimate_gas_for_transfer(from_address, to_address, amount_avax)
+    try:
+        # Convert AVAX amount to Wei
+        amount_wei = w3.to_wei(amount_avax, 'ether')
+        
+        # Get the nonce
+        nonce = w3.eth.get_transaction_count(from_address)
+        
+        # Prepare the transaction
+        tx = {
+            'nonce': nonce,
+            'to': to_address,
+            'value': amount_wei,
+            'gas': int(gas_for_transfer['estimated_gas']*1.1),
+            'gasPrice': w3.eth.gas_price,
+            'chainId': w3.eth.chain_id
+        }
+        
+        # Sign the transaction
+        signed_tx = w3.eth.account.sign_transaction(tx, private_key)
+        
+        # Send the transaction
+        tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+        
+        return tx_hash
+    except Exception as e:
+        print(f"Error sending transaction: {e}")
+        return None
 def main():
     wallet = create_wallet()
     print(f"New Avalanche C-Chain Address: {wallet['address']}")

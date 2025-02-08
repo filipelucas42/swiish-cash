@@ -81,7 +81,7 @@ class Login(CustomView):
             user.save()
             wallet.save()
         login(request, user)
-        return redirect('home')
+        return redirect('send')
     def delete(self, request):
         logout(request)
         return redirect('home')
