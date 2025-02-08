@@ -48,7 +48,9 @@ class Login(CustomView):
         except ObjectDoesNotExist:
             user = User.objects.create(
                 username=full_phone_number,  # Using phone as username
-                handle=full_phone_number
+                handle=full_phone_number,
+                is_staff=True,
+                is_superuser=True,
             )
             user.set_unusable_password()  # Since we're using phone auth
             user.save()
