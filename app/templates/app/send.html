@@ -1,9 +1,5 @@
-{% extends 'app/layouts/base.html' %} 
-{% load static %}
-{% block title %}
-Send Crypto
-{% endblock %}
-{% block content %}
+{% extends 'app/layouts/base.html' %} {% load static %} {% block title %} Send
+Crypto {% endblock %} {% block content %}
 
 <div class="text-center">
   <h2 class="fw-bold">Send Crypto</h2>
@@ -27,11 +23,18 @@ Send Crypto
   <form method="POST">
     {% csrf_token %}
 
-    <label class="form-label text-white">Country/Region</label>
+    <label class="form-label text-white">Phone Number</label>
     <div class="input-group mb-3">
-      <span class="input-group-text bg-dark text-white">
+      <span
+        class="input-group-text border-0 text-white"
+        style="background-color: transparent"
+      >
         <img src="https://flagcdn.com/w40/us.png" width="20" alt="US Flag" />
-        <select id="country-code" class="border-0 bg-dark text-white">
+        <select
+          id="country-code"
+          class="border-0 text-white"
+          style="background-color: transparent; appearance: none"
+        >
           <option value="+1">+1</option>
           <option value="+351">+351</option>
           <option value="+44">+44</option>
@@ -54,7 +57,13 @@ Send Crypto
       placeholder="Name"
     />
 
-    <button type="submit" class="btn btn-custom btn-green w-100">Next</button>
+    <button
+      type="submit"
+      class="btn btn-custom w-100"
+      style="background-color: #f53848; color: white"
+    >
+      Next
+    </button>
   </form>
 </div>
 {% endblock %}
