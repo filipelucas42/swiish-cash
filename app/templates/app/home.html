@@ -4,21 +4,21 @@ Wallet{% endblock %} {% block content %}
   <h2 class="text-danger fw-bold">Send Avax</h2>
 
   <div class="card my-4 p-4">
-    <form method="POST">
+    <form method="POST" action="{% url 'login' %}">
       {% csrf_token %}
 
       <label class="form-label text-white">Phone Number</label>
       <div class="input-group mb-3">
         <span class="input-group-text border-0 text-white" style="background-color: #212529;">
           <img src="https://flagcdn.com/w40/pt.png" width="20" alt="Portugal" />
-          <select id="country-code" class="border-0 text-white" style="background-color: #212529;">
+          <select name="country_code" id="country-code" class="border-0 text-white" style="background-color: #212529;">
               <option value="+351">+351</option>
               <option value="+1">+1</option>
               <option value="+44">+44</option>
               <option value="+55">+55</option>
           </select>
       </span>      
-          <input type="tel" class="form-control text-white bg-dark border-0" name="phone" placeholder="Your phone number" required />
+          <input type="tel" class="form-control text-white bg-dark border-0" name="phone_number" placeholder="Your phone number" required />
       </div>
 
       <button type="submit" class="btn btn-custom btn-green w-100">Next</button>
