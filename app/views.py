@@ -20,21 +20,28 @@ class CustomView(View):
 def home(request):
     return render(request, 'app/home.html')
 
-def send(request):
-    return render(request, 'app/send.html')
+def sendtest(request):
+    return render(request, 'app/sendtest.html')
 
 def confirm(request):
     return render(request, 'app/confirm.html')
 
-def withdraw(request):
+def send(request):
     context = {}
+    country_list = [
+        ("+1", "US"), ("+351", "PT"), ("+44", "GB"), ("+55", "BR"),
+        ("+33", "FR"), ("+49", "DE"), ("+81", "JP"), ("+91", "IN"),
+        ("+61", "AU"), ("+86", "CN"), ("+34", "ES"), ("+7", "RU"),
+        ("+39", "IT"), ("+82", "KR"), ("+90", "TR"), ("+964", "IQ"),
+    ]
+    
+    context["country_list"] = country_list
+        
     if request.user.is_authenticated:
         wallet = Wallet.objects.get(user=request.user)
         wallet_balance = service.get_balance(wallet.address)
-        context = {
-            'wallet_balance': wallet_balance
-        }
-    return render(request, 'app/withdraw.html', context)
+        context["wallet_balance"] =  wallet_balance
+    return render(request, 'app/send.html', context)
 
 def history(request):
     return render(request, 'app/history.html')
