@@ -41,14 +41,16 @@ def index(request):
 class Login(CustomView):
     def post(self, request):
         phone_number = request.POST.get('phone_number')
+        country_code = request.POST.get('country_code')
+        full_phone_number = f'{country_code}{phone_number}'
         try:
-            user = User.objects.get(handle=phone_number)
+            user = User.objects.get(handle=full_phone_number)
         except ObjectDoesNotExist:
             user = User.objects.create(
-                username=phone_number,  # Using phone as username
-                handle=phone_number
+                username=full_phone_number,  # Using phone as username
+                handle=full_phone_number
             )
             user.set_unusable_password()  # Since we're using phone auth
             user.save()
         login(request, user)
-        return redirect('index')
+        return redirect('home')
