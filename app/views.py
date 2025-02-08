@@ -18,7 +18,13 @@ class CustomView(View):
         return super(CustomView, self).dispatch(*args, **kwargs)
     
 def home(request):
-    return render(request, 'app/home.html')
+    if request.user.is_authenticated:
+        wallet = Wallet.objects.get(user=request.user)
+        wallet_balance = service.get_balance(wallet.address)
+        context = {
+            'wallet_balance': wallet_balance
+        }
+    return render(request, 'app/home.html', context)
 
 def send(request):
     return render(request, 'app/send.html')
