@@ -42,7 +42,6 @@ def logout_handler(request):
     logout(request)
     return redirect('home')
 
-
 class Login(CustomView):
     def post(self, request):
         phone_number = request.POST.get('phone_number')

@@ -1,15 +1,48 @@
-{% extends 'app/layouts/base.html' %}
-
-{% block title %}Send Crypto{% endblock %}
-
+{% extends 'app/layouts/base.html' %} {% block title %}Send Crypto{% endblock %}
 {% block content %}
-<div class="card">
-    <h2>Send Avax</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" class="form-control my-3" placeholder="+351 917 432 992">
-        <input type="number" class="form-control my-3" placeholder="Valor em USD">
-        <button type="submit" class="btn btn-custom btn-green">Next</button>
-    </form>
+<div class="text-center">
+  <h2 class="fw-bold">Send Crypto</h2>
+  <h3 class="text-muted">Sending $27 USDC</h3>
+
+  <div class="card my-4 p-4 text-center">
+    <img
+      src="https://cryptologos.cc/logos/solana-sol-logo.png?v=023"
+      width="150"
+      class="img-fluid rounded"
+    />
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label class="form-label text-white">Country/Region</label>
+    <div class="input-group mb-3">
+      <span class="input-group-text bg-dark text-white">
+        <img src="https://flagcdn.com/w40/us.png" width="20" alt="US Flag" />
+        <select id="country-code" class="border-0 bg-dark text-white">
+          <option value="+1">+1</option>
+          <option value="+351">+351</option>
+          <option value="+44">+44</option>
+          <option value="+55">+55</option>
+        </select>
+      </span>
+      <input
+        type="tel"
+        class="form-control bg-dark text-white"
+        name="phone"
+        placeholder="Phone Number"
+        required
+      />
+    </div>
+
+    <label class="form-label text-white">Name (Optional)</label>
+    <input
+      type="text"
+      class="form-control bg-dark text-white mb-3"
+      placeholder="Name"
+    />
+
+    <button type="submit" class="btn btn-custom btn-green w-100">Next</button>
+  </form>
 </div>
 {% endblock %}
