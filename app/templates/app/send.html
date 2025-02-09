@@ -1,11 +1,8 @@
-{% extends 'app/layouts/base.html' %}
-{% load static %}
+{% extends 'app/layouts/base.html' %} {% load static %}
 
 <!-- Define page title for navbar -->
-{% block title %}Send Crypto{% endblock %}
-{% block page_title %}Send Crypto{% endblock %}
-
-{% block content %}
+{% block title %}Send Crypto{% endblock %} {% block page_title %}Send
+Crypto{%endblock %} {% block content %}
 <div class="text-center">
   <div class="position-relative d-flex justify-content-center">
     <img
@@ -24,15 +21,21 @@
   <p class="mt-3 text-white">AVAX</p>
 
   <!-- Withdraw Form -->
-  <form method="POST" class="mx-auto" style="max-width: 300px" action="{% url 'confirm' %}">
+  <form
+    method="POST"
+    class="mx-auto"
+    style="max-width: 300px"
+    action="{% url 'confirm' %}"
+  >
     {% csrf_token %}
 
+    <!-- Amount Input -->
     <input
       type="number"
       id="withdrawAmount"
       class="form-control text-white bg-transparent text-center fw-bold border-0"
       style="
-        font-size: 60px;
+        font-size: 50px;
         width: 100%;
         max-width: 250px;
         margin: 0 auto;
@@ -49,20 +52,41 @@
       style="
         font-family: 'Inter', sans-serif;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
         text-align: center;
         color: #ffffff;
-        margin-top: 10px;
+        margin-top: 5px;
         border-top: 2px solid white;
         display: inline-block;
-        padding-top: 5px;
+        padding-top: 3px;
       "
     >
       Balance: <span id="cryptoBalance">{{ wallet_balance }}</span> Avax
     </p>
 
+    <!-- Address Input -->
+    <label
+      class="form-label text-white text-start d-block"
+      style="font-size: 14px"
+    >
+      Send to Address
+    </label>
+    <input
+      type="text"
+      class="form-control text-white bg-transparent"
+      style="border: 1px solid white; outline: none; font-size: 14px"
+      name="address"
+      placeholder="Enter wallet address"
+      required
+    />
+
     <!-- Phone Number Input -->
-    <label class="form-label text-white text-start d-block" style="font-size: 14px">Send to Phone Number</label>
+    <label
+      class="form-label text-white text-start d-block mt-3"
+      style="font-size: 14px"
+    >
+      Or Phone Number
+    </label>
     <div class="d-flex align-items-center mb-3">
       <div class="me-2 position-relative" style="width: 110px">
         <span
@@ -80,17 +104,31 @@
         <select
           id="country-code"
           name="country_code"
-          class="form-control text-white bg-transparent text-center ps-5"
-          style="border: 1px solid white; outline: none; font-size: 14px"
+          class="form-control text-white bg-transparent text-center"
+          style="
+            border: 1px solid white;
+            outline: none;
+            font-size: 14px;
+            width: 80px;
+            padding-left: 35px;
+          "
         >
-          {% for code, country in country_list %}
-          <option
-            value="{{ code }}"
-            data-flag="https://flagcdn.com/w40/{{ country.lower }}.png"
-          >
-            {{ code }}
+          <option value="+1" data-flag="https://flagcdn.com/w40/us.png">
+            +1
           </option>
-          {% endfor %}
+          <option
+            value="+351"
+            data-flag="https://flagcdn.com/w40/pt.png"
+            selected
+          >
+            +351
+          </option>
+          <option value="+44" data-flag="https://flagcdn.com/w40/gb.png">
+            +44
+          </option>
+          <option value="+55" data-flag="https://flagcdn.com/w40/br.png">
+            +55
+          </option>
         </select>
       </div>
 
@@ -108,27 +146,55 @@
     <button
       type="submit"
       class="btn btn-custom w-100 mt-3"
-      style="background-color: #E84142; color: white; border-radius: 8px; font-weight: 800; font-family: 'Inter', sans-serif;";
+      style="
+        background-color: #e84142;
+        color: white;
+        border-radius: 8px;
+        font-weight: 800;
+        font-family: 'Inter', sans-serif;
+      "
     >
       Next
     </button>
   </form>
 </div>
 
-<style>
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
-}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const countrySelect = document.getElementById("country-code");
+    const flagImg = document.getElementById("country-flag");
 
-input:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
+    // Função para atualizar a bandeira com base na opção selecionada
+    function updateFlag() {
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      const flagUrl = selectedOption.getAttribute("data-flag");
+      if (flagUrl) {
+        flagImg.src = flagUrl;
+      }
+    }
+
+    // Atualiza a bandeira no carregamento da página
+    updateFlag();
+
+    // Atualiza a bandeira ao mudar a seleção
+    countrySelect.addEventListener("change", updateFlag);
+  });
+</script>
+
+<style>
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 </style>
 
 {% endblock %}

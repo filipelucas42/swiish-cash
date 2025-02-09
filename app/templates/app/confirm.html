@@ -1,10 +1,8 @@
 {% extends 'app/layouts/base.html' %} {% load static %}
 
-<!-- Define page title for navbar -->
 {% block title %}Confirm Transfer{% endblock %} {% block page_title %}Confirm
 Transfer{% endblock %} {% block content %}
 <div class="text-center">
-  <!-- Imagens (Card + Avalanche Logo) -->
   <div class="position-relative d-flex justify-content-center">
     <img
       src="{% static 'app/images/red_card.png' %}"
@@ -19,14 +17,11 @@ Transfer{% endblock %} {% block content %}
     />
   </div>
 
-  <!-- Tipo de Criptomoeda -->
   <p class="mt-2 mb-1 text-white" style="font-size: 14px">AVAX</p>
 
-  <!-- Formulário de Confirmação -->
   <form method="POST" class="mx-auto" style="max-width: 280px" action="/send-transaction/">
     {% csrf_token %}
 
-    <!-- Valor a ser enviado (Input oculto para envio) -->
     <input type="hidden" name="value" value="{{ value }}" />
     <p
       class="text-white text-center fw-bold border-0"
@@ -41,13 +36,11 @@ Transfer{% endblock %} {% block content %}
       $<span id="sendAmount">{{ value }}</span>
     </p>
 
-    <!-- Linha separadora menor -->
     <hr
       class="mt-1 mb-2"
       style="border: 1px solid white; width: 50%; margin: auto"
     />
 
-    <!-- Gas Fees -->
     <div class="mt-2 mb-1 text-start">
       <label
         class="form-label text-white d-block"
@@ -62,7 +55,6 @@ Transfer{% endblock %} {% block content %}
       </p>
     </div>
 
-    <!-- Número de telefone do destinatário (Input oculto para envio) -->
     <input type="hidden" name="phone_number" value="{{ recipient }}" />
     <div class="mt-2 mb-1 text-start">
       <label
@@ -78,7 +70,6 @@ Transfer{% endblock %} {% block content %}
       </p>
     </div>
 
-    <!-- Botão de confirmação -->
     <button
       type="submit"
       class="btn btn-custom w-100 mt-3"
