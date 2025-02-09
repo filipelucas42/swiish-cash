@@ -1,11 +1,15 @@
-{% extends 'app/layouts/base.html' %} {% block title %}Register - Crypto
-Wallet{% endblock %} {% block content %}
+{% extends 'app/layouts/base.html' %} 
+{% block title %}Register - Crypto Wallet{% endblock %} 
+
+{% block content %}
+{% load static %} 
 <div class="text-center">
-  <h2
-    style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 32px"
-  >
-    Swiish it!
-  </h2>
+
+  <!-- Logo -->
+  <div class="d-flex justify-content-center align-items-center mt-4">
+    <img src="{% static 'app/images/S.png' %}" alt="Swiish S" style="width: 40px;">
+    <img src="{% static 'app/images/Swiish.png' %}" alt="Swiish Text" style="width: 120px;">
+  </div>
 
   <div class="my-4 p-4">
     {% if not user.is_authenticated %}
