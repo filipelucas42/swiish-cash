@@ -1,3 +1,4 @@
+{% load common_tags %}
 <!DOCTYPE html>
 <html lang="pt">
   <head>
@@ -99,6 +100,8 @@
 
       <!-- Logout Button -->
       {% if user.is_authenticated %}
+      {% user_address %}
+      {{ user.handle }}
       <a href="{% url 'logout' %}" class="btn logout-btn mt-3 me-4">Logout</a>
       {% endif %}
     </div>
