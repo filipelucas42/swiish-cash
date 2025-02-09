@@ -91,6 +91,10 @@ def logout_handler(request):
     logout(request)
     return redirect('home')
 
+def confirm_transfer(request):
+    response = render(request, 'app/confirmTransfer.html')
+    return response
+
 class Login(CustomView):
     def post(self, request):
         phone_number = request.POST.get('phone_number')

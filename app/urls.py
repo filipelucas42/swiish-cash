@@ -10,4 +10,5 @@ urlpatterns = [
     path('history/', views.history, name='history'),
     path('logout/', views.logout_handler, name='logout'),
     path('verifyCode/', views.verify_code, name='verify_code'), 
+    path('confirmTransfer/', views.confirm_transfer, name='confirm_transfer'), 
 ]
