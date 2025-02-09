@@ -16,6 +16,8 @@ Swiish Cash aims to make cryptocurrency accessible to everyone by removing tradi
 
 CryptoMBWay is a web application that allows users to send AVAX (Avalanche's native cryptocurrency) to anyone using just their phone number, similar to traditional mobile payment apps but powered by blockchain technology.
 
+https://app.swiish.cash
+
 ## ✨ Features
 
 - Phone number-based authentication
@@ -26,16 +28,20 @@ CryptoMBWay is a web application that allows users to send AVAX (Avalanche's nat
 
 ## Screenshots
 
-![](https://youtu.be/tuA8HFAiwY4?si=Cn2BKWlTYlK5xSuF)
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
 
-- Home
+- HomePage
+
 ![](screenshots/1.png)
 
 - Account page
+
 ![](screenshots/2.png)
 
 - Confirm Transfer
+
 ![](screenshots/3.png)
 
 - Transfer validation
+
 ![](screenshots/4.png)
