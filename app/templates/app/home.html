@@ -5,41 +5,67 @@ Wallet{% endblock %} {% block content %}
 
   <div class="my-4 p-4">
     {% if not user.is_authenticated %}
-    <form method="POST" action="{% url 'login' %}">
+    <form
+      method="POST"
+      action="{% url 'login' %}"
+      class="mx-auto"
+      style="max-width: 300px"
+    >
       {% csrf_token %}
 
-      <label class="form-label text-white" style="text-align: left; display: block;">Phone Number</label>
-      <div class="input-group mb-3">
-        <span
-          class="input-group-text border-0 text-white"
-          style="background-color: transparent"
-        >
-          <img src="https://flagcdn.com/w40/pt.png" width="20" alt="Portugal" />
+      <!-- Phone Number Input -->
+      <label
+        class="form-label text-white text-start d-block"
+        style="font-size: 14px"
+        >Phone Number</label
+      >
+      <div class="d-flex align-items-center mb-3">
+        <div class="me-2 position-relative" style="width: 110px">
+          <span
+            class="position-absolute"
+            style="top: 50%; left: 10px; transform: translateY(-50%)"
+          >
+            <img
+              id="country-flag"
+              src="https://flagcdn.com/w40/pt.png"
+              width="20"
+              alt="Country Flag"
+            />
+          </span>
+
           <select
-            name="country_code"
             id="country-code"
-            class="border-0 text-white"
-            style="background-color: transparent; appearance: none"
+            name="country_code"
+            class="form-control text-white bg-transparent text-center ps-5"
+            style="border: 1px solid white; outline: none; font-size: 14px"
           >
             <option value="+351">+351</option>
             <option value="+1">+1</option>
             <option value="+44">+44</option>
             <option value="+55">+55</option>
           </select>
-        </span>
+        </div>
+
         <input
           type="tel"
-          class="form-control text-white bg-dark border-0"
+          class="form-control text-white bg-transparent"
+          style="border: 1px solid white; outline: none; font-size: 14px"
           name="phone_number"
           placeholder="Your phone number"
           required
         />
       </div>
 
+      <!-- Submit Button -->
       <button
         type="submit"
-        class="btn btn-custom w-100"
-        style="background-color: #E84142; color: white"
+        class="btn btn-custom w-100 mt-3"
+        style="
+          background-color: #e84142;
+          color: white;
+          border-radius: 8px;
+          font-family: 'Inter', sans-serif;
+        "
       >
         Next
       </button>
@@ -47,4 +73,21 @@ Wallet{% endblock %} {% block content %}
     {% endif %}
   </div>
 </div>
+
+<!-- Custom CSS to Remove Number Input Arrows & Outline -->
+<style>
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+</style>
 {% endblock %}
