@@ -23,11 +23,11 @@ Transfer{% endblock %} {% block content %}
   <p class="mt-2 mb-1 text-white" style="font-size: 14px">AVAX</p>
 
   <!-- Formulário de Confirmação -->
-  <form method="POST" class="mx-auto" style="max-width: 280px">
+  <form method="POST" class="mx-auto" style="max-width: 280px" action="/send-transaction/">
     {% csrf_token %}
 
     <!-- Valor a ser enviado (Input oculto para envio) -->
-    <input type="hidden" name="value" value="{{ send_amount }}" />
+    <input type="hidden" name="value" value="{{ value }}" />
     <p
       class="text-white text-center fw-bold border-0"
       style="
@@ -38,7 +38,7 @@ Transfer{% endblock %} {% block content %}
         display: block;
       "
     >
-      $<span id="sendAmount">{{ send_amount }}</span>
+      $<span id="sendAmount">{{ value }}</span>
     </p>
 
     <!-- Linha separadora menor -->
@@ -58,12 +58,12 @@ Transfer{% endblock %} {% block content %}
         class="text-white border-0"
         style="font-size: 14px; margin: 0; padding: 0"
       >
-        $<span id="gasFees">{{ gas_fees }}</span>
+        $<span id="gasFees">{{ gas }}</span>
       </p>
     </div>
 
     <!-- Número de telefone do destinatário (Input oculto para envio) -->
-    <input type="hidden" name="phone_number" value="{{ phone_number }}" />
+    <input type="hidden" name="phone_number" value="{{ recipient }}" />
     <div class="mt-2 mb-1 text-start">
       <label
         class="form-label text-white d-block"
@@ -74,7 +74,7 @@ Transfer{% endblock %} {% block content %}
         class="text-white border-0"
         style="font-size: 14px; margin: 0; padding: 0"
       >
-        <span id="phoneNumber">{{ phone_number }}</span>
+        <span id="phoneNumber">{{ recipient }}</span>
       </p>
     </div>
 
