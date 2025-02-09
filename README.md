@@ -45,3 +45,9 @@ https://app.swiish.cash
 - Transfer validation
 
 ![](screenshots/4.png)
+
+## Notes
+- Project is running on the fuji test network https://api.avax-test.network/ext/bc/C/rpc
+- The OTP is the only thing is not properly working, for dev purposes the OTP is always the first 4 numbers of a phone number (including the country code numbers). Example:
+    - +351968200000: OTP 3519
+    - +110008760: OTP 1100
