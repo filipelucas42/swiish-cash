@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-w7l#8j24pk9!!fm(1%z^7vew7jd=cv1mms*+4++2p&8b3x1hra
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", 'app.swiish.cash']
+CSRF_TRUSTED_ORIGINS = ['https://app.swiish.cash']
 
 
 # Application definition
