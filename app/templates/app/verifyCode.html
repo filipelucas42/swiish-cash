@@ -13,8 +13,9 @@
     <span class="fw-bold">{{ phone_number }}</span>
   </p>
 
-  <form method="POST" class="mx-auto" style="max-width: 300px;">
+  <form method="POST" class="mx-auto" action="{% url 'confirm-otp' %}" style="max-width: 300px;">
     {% csrf_token %}
+    <input type="hidden" name="phone_number" value="{{ phone_number }}" />
 
     <div class="d-flex justify-content-center mt-3">
       <input type="text" name="code" maxlength="4"

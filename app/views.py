@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, logout
-from app.models import User, Wallet
+from app.models import User, Wallet, OTP
 from app import service
 
 class CustomView(View):
@@ -29,11 +29,18 @@ def sendtest(request):
 def send_transaction(request):
     user = request.user
     value = request.POST.get('value')
-    phone_number = request.POST.get('phone_number')
+    recipient = request.POST.get('recipient')
 
     wallet_from = Wallet.objects.get(user=user)
-    wallet_to = Wallet.objects.get(user__handle=phone_number)
-    service.send_transaction(wallet_from.address, wallet_to.address, value, wallet_from.private_key)
+    print("Recipient: ", recipient)
+
+    if recipient.startswith("+"):
+        wallet_to = Wallet.objects.get(user__handle=recipient)
+        print("Wallet to: ", wallet_to.address)
+        address = wallet_to.address
+    else:
+        address = recipient
+    service.send_transaction(wallet_from.address, address, value, wallet_from.private_key)
     return redirect('send')
 
 def confirm(request):
@@ -42,18 +49,24 @@ def confirm(request):
     phone_number = request.POST.get('phone_number')
     country_code = request.POST.get('country_code')
     full_phone_number = f'{country_code}{phone_number}'
-    
-    try:
-        user_to_send = User.objects.get(handle=full_phone_number)
-    except ObjectDoesNotExist:
-        user_to_send = service.create_user(full_phone_number)
+    address = request.POST.get('address')
+    if address == "":
+        recipient = full_phone_number
+        try:
+            user_to_send = User.objects.get(handle=full_phone_number)
+        except ObjectDoesNotExist:
+            user_to_send = service.create_user(full_phone_number)
+
+        wallet_to = Wallet.objects.get(user=user_to_send)
+        address = wallet_to.address
+    else:
+        recipient = address
     wallet_from = Wallet.objects.get(user=user)
-    wallet_to = Wallet.objects.get(user=user_to_send)
-    gas_estimate = service.estimate_gas_for_transfer(wallet_from.address, wallet_to.address, value)
+    gas_estimate = service.estimate_gas_for_transfer(wallet_from.address, address, value)
     context = {}
     context["value"] = value
     context["gas"] = gas_estimate["total_cost_avax"]
-    context["recipient"] = full_phone_number
+    context["recipient"] = recipient
     return render(request, 'app/confirm.html', context)
 
 def send(request):
@@ -84,24 +97,45 @@ def index(request):
     return response
 
 def verify_code(request):
-    response = render(request, 'app/verifyCode.html')
-    return response
+    context = {}
+    phone_number = request.POST.get('phone_number')
+    country_code = request.POST.get('country_code')
+    full_phone_number = f'{country_code}{phone_number}'
+    try:
+        User.objects.get(handle=full_phone_number)
+    except ObjectDoesNotExist:
+        service.create_user(full_phone_number)
+    context["phone_number"] = full_phone_number
+    
+    return render(request, 'app/verifyCode.html', context)
 
 def logout_handler(request):
     logout(request)
     return redirect('home')
 
+def confirm_otp(request):
+    phone_number = request.POST.get("phone_number")
+    otp = request.POST.get("code")
+    user = User.objects.get(handle=phone_number)
+    if user.handle.startswith("+" + otp):
+        login(request, user)
+        return redirect('send')
+    return redirect('home')
+
 class Login(CustomView):
     def post(self, request):
+        context = {}
         phone_number = request.POST.get('phone_number')
         country_code = request.POST.get('country_code')
         full_phone_number = f'{country_code}{phone_number}'
         try:
-            user = User.objects.get(handle=full_phone_number)
+            User.objects.get(handle=full_phone_number)
         except ObjectDoesNotExist:
-            user = service.create_user(full_phone_number)
-        login(request, user)
-        return redirect('send')
+            service.create_user(full_phone_number)
+        context["phone_number"] = full_phone_number
+        
+        return render(request, 'app/verifyCode.html', context)
+    
     def delete(self, request):
         logout(request)
         return redirect('home')

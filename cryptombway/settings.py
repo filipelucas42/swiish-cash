@@ -69,7 +69,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            "libraries": {
+                "common_tags": "app.common_tags"
+            }
         },
+
     },
 ]
 
@@ -80,26 +84,14 @@ WSGI_APPLICATION = 'cryptombway.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-if not os.getenv('DATABASE_URL', '').startswith('postgres://'):
-    # Production database (PostgreSQL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': "postgres",
-            'USER': "postgres",
-            'PASSWORD': "postgres",
-            'HOST': "db",
-            'PORT': "5432",
-        }
-    }
-else:
+
     # Development database (SQLite)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
