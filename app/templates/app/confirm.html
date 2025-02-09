@@ -1,7 +1,6 @@
-{% extends 'app/layouts/base.html' %} {% load static %}
-
-{% block title %}Confirm Transfer{% endblock %} {% block page_title %}Confirm
-Transfer{% endblock %} {% block content %}
+{% extends 'app/layouts/base.html' %} {% load static %} {% block title %}Confirm
+Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
+{%block content %}
 <div class="text-center">
   <div class="position-relative d-flex justify-content-center">
     <img
@@ -19,7 +18,12 @@ Transfer{% endblock %} {% block content %}
 
   <p class="mt-2 mb-1 text-white" style="font-size: 14px">AVAX</p>
 
-  <form method="POST" class="mx-auto" style="max-width: 280px" action="/send-transaction/">
+  <form
+    method="POST"
+    class="mx-auto"
+    style="max-width: 280px"
+    action="/send-transaction/"
+  >
     {% csrf_token %}
 
     <input type="hidden" name="value" value="{{ value }}" />
@@ -29,8 +33,11 @@ Transfer{% endblock %} {% block content %}
         font-size: 50px;
         width: 100%;
         max-width: 250px;
-        margin: 5px auto;
-        display: block;
+        margin: 10px auto; /* Centraliza horizontalmente */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
       "
     >
       $<span id="sendAmount">{{ value }}</span>
@@ -43,8 +50,13 @@ Transfer{% endblock %} {% block content %}
 
     <div class="mt-2 mb-1 text-start">
       <label
-        class="form-label text-white d-block"
-        style="font-size: 12px; margin-bottom: 3px"
+        class="form-label d-block"
+        style="
+          font-size: 12px;
+          margin-bottom: 3px;
+          font-weight: bold;
+          color: rgb(188, 188, 188);
+        "
         >Gas Fees</label
       >
       <p
@@ -58,10 +70,16 @@ Transfer{% endblock %} {% block content %}
     <input type="hidden" name="phone_number" value="{{ recipient }}" />
     <div class="mt-2 mb-1 text-start">
       <label
-        class="form-label text-white d-block"
-        style="font-size: 12px; margin-bottom: 3px"
-        >Recipient Phone Number</label
+        class="form-label d-block"
+        style="
+          font-size: 12px;
+          margin-bottom: 3px;
+          font-weight: bold;
+          color: rgb(188, 188, 188);
+        "
       >
+        Send to
+      </label>
       <p
         class="text-white border-0"
         style="font-size: 14px; margin: 0; padding: 0"
@@ -78,6 +96,7 @@ Transfer{% endblock %} {% block content %}
         color: white;
         border-radius: 6px;
         font-family: 'Inter';
+        font-weight: 800;
         padding: 8px;
       "
     >
