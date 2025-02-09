@@ -25,6 +25,16 @@ def home(request):
 def sendtest(request):
     return render(request, 'app/sendtest.html')
 
+def send_transaction(request):
+    user = request.user
+    value = request.POST.get('value')
+    phone_number = request.POST.get('phone_number')
+
+    wallet_from = Wallet.objects.get(user=user)
+    wallet_to = Wallet.objects.get(user__handle=phone_number)
+    service.send_transaction(wallet_from.address, wallet_to.address, value, wallet_from.private_key)
+    return redirect('send')
+
 def confirm(request):
     user = request.user
     value = request.POST.get('value')
