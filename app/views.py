@@ -32,7 +32,6 @@ def send_transaction(request):
     recipient = request.POST.get('recipient')
 
     wallet_from = Wallet.objects.get(user=user)
-    print("Recipient: ", recipient)
 
     if recipient.startswith("+"):
         wallet_to = Wallet.objects.get(user__handle=recipient)
@@ -41,7 +40,10 @@ def send_transaction(request):
     else:
         address = recipient
     service.send_transaction(wallet_from.address, address, value, wallet_from.private_key)
-    return redirect('send')
+    context = {}
+    context["amount"] = value
+    context["recipient"] = recipient
+    return render(request, 'app/confirmTransfer.html', context)
 
 def confirm(request):
     user = request.user
