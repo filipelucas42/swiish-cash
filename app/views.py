@@ -122,6 +122,10 @@ def confirm_otp(request):
         return redirect('send')
     return redirect('home')
 
+def confirm_transfer(request):
+    response = render(request, 'app/confirmTransfer.html')
+    return response
+
 class Login(CustomView):
     def post(self, request):
         context = {}

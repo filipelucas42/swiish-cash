@@ -10,5 +10,6 @@ urlpatterns = [
     path('history/', views.history, name='history'),
     path('logout/', views.logout_handler, name='logout'),
     path('verify-code/', views.verify_code, name='verify-code'), 
-    path('confirm-otp/', views.confirm_otp, name='confirm-otp')
+    path('confirm-otp/', views.confirm_otp, name='confirm-otp'),
+    path('confirm-transfer/', views.confirm_transfer, name='confirm-transfer'),
 ]

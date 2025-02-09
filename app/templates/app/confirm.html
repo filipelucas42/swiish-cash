@@ -15,8 +15,7 @@ Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
       style="top: 50%; left: 50%; transform: translate(-50%, -50%)"
     />
   </div>
-
-  <p class="mt-2 mb-1 text-white" style="font-size: 14px">AVAX</p>
+  <br>
 
   <form
     method="POST"
@@ -30,7 +29,7 @@ Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
     <p
       class="text-white text-center fw-bold border-0"
       style="
-        font-size: 50px;
+        font-size: 40px;
         width: 100%;
         max-width: 250px;
         margin: 10px auto;
@@ -40,13 +39,15 @@ Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
         text-align: center;
       "
     >
-      $<span id="sendAmount">{{ value }}</span>
+      <span id="sendAmount">{{ value }}</span>&nbsp;AVAX
     </p>
 
     <hr
       class="mt-1 mb-2"
       style="border: 1px solid white; width: 50%; margin: auto"
     />
+
+    <br>
 
     <div class="mt-2 mb-1 text-start">
       <label
@@ -63,7 +64,7 @@ Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
         class="text-white border-0"
         style="font-size: 14px; margin: 0; padding: 0"
       >
-        $<span id="gasFees">{{ gas }}</span>
+        <span id="gasFees">{{ gas }}</span> AVAX
       </p>
     </div>
 
@@ -87,6 +88,8 @@ Transfer{% endblock %} {% block page_title %}Confirm Transfer{% endblock %}
         <span id="phoneNumber">{{ recipient }}</span>
       </p>
     </div>
+
+    <br>
 
     <button
       type="submit"
