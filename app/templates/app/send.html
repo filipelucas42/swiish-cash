@@ -7,7 +7,6 @@
 
 {% block content %}
 <div class="text-center">
-  <!-- Images (Card + Avalanche Logo) -->
   <div class="position-relative d-flex justify-content-center">
     <img
       src="{% static 'app/images/red_card.png' %}"
@@ -22,14 +21,12 @@
     />
   </div>
 
-  <!-- Crypto Type -->
   <p class="mt-3 text-white">AVAX</p>
 
   <!-- Withdraw Form -->
   <form method="POST" class="mx-auto" style="max-width: 300px" action="{% url 'confirm' %}">
     {% csrf_token %}
 
-    <!-- Large Number Input (Amount) -->
     <input
       type="number"
       id="withdrawAmount"
@@ -111,14 +108,13 @@
     <button
       type="submit"
       class="btn btn-custom w-100 mt-3"
-      style="background-color: #E84142; color: white; border-radius: 8px; font-family: 'Inter', sans-serif;";
+      style="background-color: #E84142; color: white; border-radius: 8px; font-weight: 800; font-family: 'Inter', sans-serif;";
     >
       Next
     </button>
   </form>
 </div>
 
-<!-- Custom CSS to Remove Number Input Arrows & Outline -->
 <style>
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

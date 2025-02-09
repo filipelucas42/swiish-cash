@@ -48,21 +48,19 @@
         background-color: #e63946;
         color: white;
       }
-      /* Navbar fixed at the top */
       .navbar-fixed {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         height: 60px;
-        background-color: transparent;
+        background-color: #121212;
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 16px;
       }
-      /* Title centered */
       .navbar-title {
         position: absolute;
         left: 50%;
@@ -70,11 +68,9 @@
         font-size: 18px;
         font-weight: bold;
       }
-      /* Prevent content from being overlapped by navbar */
       .content-wrapper {
         padding-top: 70px;
       }
-      /* Logout button style */
       .logout-btn {
         background-color: #232323 !important;
         color: white !important;
@@ -85,9 +81,8 @@
     </style>
   </head>
   <body>
-    <!-- Navbar fixed at the top -->
     <div class="navbar-fixed">
-      <!-- Back Button -->
+      {% if request.resolver_match.url_name != "home" %}
       <a
         href="javascript:history.back()"
         class="text-white mt-4 ms-4"
@@ -95,13 +90,14 @@
       >
         <span class="material-symbols-outlined">arrow_back_ios</span>
       </a>
+      {% endif %}
 
       <!-- Centered Title -->
       <h1 class="text-white navbar-title mt-4" style="font-size: 24px">
         {% block page_title %}{% endblock %}
       </h1>
 
-      <!-- Logout Button (Aligned to Right) -->
+      <!-- Logout Button -->
       {% if user.is_authenticated %}
       <a href="{% url 'logout' %}" class="btn logout-btn mt-3 me-4">Logout</a>
       {% endif %}

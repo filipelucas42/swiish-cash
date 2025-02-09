@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -72,6 +73,10 @@ def index(request):
     response = render(request, 'app/index.html')
     return response
 
+def verify_code(request):
+    response = render(request, 'app/verifyCode.html')
+    return response
+
 def logout_handler(request):
     logout(request)
     return redirect('home')
@@ -90,4 +95,3 @@ class Login(CustomView):
     def delete(self, request):
         logout(request)
         return redirect('home')
-
