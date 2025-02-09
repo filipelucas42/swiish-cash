@@ -18,6 +18,8 @@ class CustomView(View):
         return super(CustomView, self).dispatch(*args, **kwargs)
     
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('send')
     return render(request, 'app/home.html')
 
 def sendtest(request):
