@@ -1,5 +1,7 @@
 # Swiish Cash
 
+Winner project of ETH Oxford 2025: (https://dorahacks.io/hackathon/eth-oxford-2025/winner)
+
 Mobile payment solution that combines the simplicity of phone-based transfers with the power of blockchain technology on the Avalanche network.
 
 ## 💡 Breaking Down Crypto Barriers
